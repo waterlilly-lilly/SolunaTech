@@ -16,7 +16,6 @@ val archives_base_name: String by project
 group = "dev.waterlilly"
 version = project.version.toString()
 base.archivesName.set(archives_base_name)
-
 val javaVersion = 17
 
 repositories {
@@ -55,7 +54,12 @@ dependencies {
     modImplementation(libs.qfapi)
     // modImplementation(libs.bundles.qfapi) // If you wish to use the deprecated Fabric API modules
 
-    modImplementation(libs.qkl)
+    modImplementation(libs.qkl) {
+        exclude("org.quiltmc.qsl")
+    }
+    modApi(libs.energy) {
+        exclude("net.fabricmc.fabric-api")
+    }
 }
 
 tasks {

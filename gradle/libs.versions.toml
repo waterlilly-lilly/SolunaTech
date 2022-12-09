@@ -1,12 +1,13 @@
 [versions]
 kotlin = "1.7.21"
 
-minecraft = "1.19.2"
-qfapi = "4.0.0-beta.21+0.67.0-1.19.2"
+minecraft = "1.19.3"
+qfapi = "5.0.0-alpha.3+0.68.1-1.19.3"
 qkl = "1.0.0+kt.1.7.20+flk.1.8.5"
-loader = "0.17.7"
-mappings = "1.19.2+build.21"
+loader = "0.18.1-beta.23"
+mappings = "1.19.3+build.1"
 loom = "1.+"
+energy = "2.3.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -18,6 +19,7 @@ qkl = { module = "org.quiltmc.quilt-kotlin-libraries:quilt-kotlin-libraries", ve
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "loader" }
 quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "mappings" }
 
+energy = {module = "teamreborn:energy", version.ref = "energy"}
 [bundles]
 quilted_fabric_api = ["qfapi", "qfapi_deprecated"]
 
