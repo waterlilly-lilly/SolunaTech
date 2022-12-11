@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 
 object Soluna : ModInitializer {
     val LOGGER: Logger = LoggerFactory.getLogger("Soluna")
+    val MOD_ID: String = "soluna"
     override fun onInitialize(mod: ModContainer) {
         Modules.init()
     }

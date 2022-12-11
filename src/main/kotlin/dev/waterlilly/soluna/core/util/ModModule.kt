@@ -4,9 +4,9 @@ import net.minecraft.util.Identifier
 import org.slf4j.Logger
 
 interface ModModule {
-    val id: String
+    val id: Identifier
     val logger: Logger
     val enabled: Boolean
-    fun identifier(path: String): Identifier
+    fun identifier(path: String) = Identifier(id.namespace, id.path + "/" + path)
     fun init()
 }

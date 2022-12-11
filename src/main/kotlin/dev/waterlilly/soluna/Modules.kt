@@ -6,6 +6,9 @@ import net.minecraft.util.Identifier
 
 object Modules {
     val CORE = SolunaCore()
+    fun initModule(module: ModModule) {
+        Soluna.LOGGER.info("Initializing module " + module.id)
+    }
     fun init() {
         Soluna.LOGGER.info("Starting Soluna module loading...")
         CORE.init()

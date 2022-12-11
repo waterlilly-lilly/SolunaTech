@@ -6,14 +6,14 @@ import net.minecraft.state.StateManager
 import net.minecraft.state.property.Properties
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
-import net.minecraft.util.shape.VoxelShape
 import net.minecraft.util.shape.VoxelShapes
 import net.minecraft.world.BlockView
+import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings
 
-abstract class AbstractMachineBlock(settings: Settings)
+abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
     : HorizontalFacingBlock(settings), BlockEntityProvider {
     init {
-        defaultState = this.defaultState.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
+        defaultState = this.stateManager.defaultState.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
     }
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?) {
         builder?.add(Properties.HORIZONTAL_FACING)

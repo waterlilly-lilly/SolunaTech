@@ -13,7 +13,7 @@ abstract class AbstractBlockEntityTypeInitializer(protected val module: ModModul
     fun<T: BlockEntity> register(path: String, builder: QuiltBlockEntityTypeBuilder<T>): BlockEntityType<T>? {
         if(!module.enabled) return null
         module.logger.debug("Register block " + module.identifier(path))
-        val type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, module.identifier(path).toString()) //TODO it feels like this isn't gonna work...
+        val type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, module.identifier(path).toString()) // TODO i should probably figure out what this does
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, module.identifier(path), builder.build(type))
     }
 }
