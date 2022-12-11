@@ -1,6 +1,10 @@
 package dev.waterlilly.soluna.core.block
 
+import dev.waterlilly.soluna.core.block.entity.SolunaCoreBlockEntityTypes
 import net.minecraft.block.*
+import net.minecraft.block.entity.BlockEntity
+import net.minecraft.block.entity.BlockEntityTicker
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.item.ItemPlacementContext
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.Properties
@@ -8,10 +12,11 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.shape.VoxelShapes
 import net.minecraft.world.BlockView
+import net.minecraft.world.World
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings
 
 abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
-    : HorizontalFacingBlock(settings), BlockEntityProvider {
+    : BlockWithEntity(settings) {
     init {
         defaultState = this.stateManager.defaultState.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
     }
@@ -27,5 +32,15 @@ abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
     ) = VoxelShapes.fullCube()
     override fun getPlacementState(ctx: ItemPlacementContext?): BlockState? {
         return defaultState.with(Properties.HORIZONTAL_FACING, ctx!!.playerFacing.opposite)
+    }
+    override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.MODEL
+    override fun <T : BlockEntity?> getTicker(world: World?, state: BlockState?, type: BlockEntityType<T>?): BlockEntityTicker<T>? {
+        return checkType(type, SolunaCoreBlockEntityTypes.EXAMPLE_POWER_SINK_MACHINE) { world, pos, state, be ->
+            be.tick(
+                world,
+                pos,
+                state
+            )
+        }
     }
 }
