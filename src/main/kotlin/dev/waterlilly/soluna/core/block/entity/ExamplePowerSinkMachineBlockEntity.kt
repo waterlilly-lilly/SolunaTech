@@ -13,12 +13,13 @@ import net.minecraft.world.World
 import team.reborn.energy.api.base.SimpleEnergyStorage
 
 
-class ExamplePowerSinkMachineBlockEntity(pos: BlockPos?, state: BlockState?) : AbstractMachineBlockEntity(SolunaCoreBlockEntityTypes.EXAMPLE_POWER_SINK_MACHINE, pos, state){
+class ExamplePowerSinkMachineBlockEntity(pos: BlockPos?, state: BlockState?) : ElectricMachineBlockEntity(SolunaCoreBlockEntityTypes.EXAMPLE_POWER_SINK_MACHINE, pos, state, 4.5f, 5.5f, 1){
     override fun tick(world: World, pos: BlockPos, state: BlockState) {
-        world.setBlockState(pos.offset(Direction.UP), Blocks.STONE.defaultState)
-
-    }
-    override fun toUpdatePacket(): Packet<ClientPlayPacketListener?>? {
-        return BlockEntityUpdateS2CPacket.of(this)
+        super.tick(world, pos, state)
+        if(tryConsumeEnergy(1)) {
+            world.setBlockState(pos.offset(Direction.UP), Blocks.GLOWSTONE.defaultState)
+        } else {
+            world.setBlockState(pos.offset(Direction.UP), Blocks.REDSTONE_BLOCK.defaultState)
+        }
     }
 }

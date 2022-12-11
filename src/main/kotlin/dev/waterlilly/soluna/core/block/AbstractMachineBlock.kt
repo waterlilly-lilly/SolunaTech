@@ -1,5 +1,6 @@
 package dev.waterlilly.soluna.core.block
 
+import dev.waterlilly.soluna.core.block.entity.AbstractMachineBlockEntity
 import dev.waterlilly.soluna.core.block.entity.SolunaCoreBlockEntityTypes
 import net.minecraft.block.*
 import net.minecraft.block.entity.BlockEntity
@@ -35,8 +36,8 @@ abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
     }
     override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.MODEL
     override fun <T : BlockEntity?> getTicker(world: World?, state: BlockState?, type: BlockEntityType<T>?): BlockEntityTicker<T>? {
-        return checkType(type, SolunaCoreBlockEntityTypes.EXAMPLE_POWER_SINK_MACHINE) { world, pos, state, be ->
-            be.tick(
+        return BlockEntityTicker { world, pos, state, be ->
+            (be as AbstractMachineBlockEntity).tick(
                 world,
                 pos,
                 state
