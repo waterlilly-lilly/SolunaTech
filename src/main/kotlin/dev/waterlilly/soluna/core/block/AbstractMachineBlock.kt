@@ -12,6 +12,9 @@ import net.minecraft.world.BlockView
 
 abstract class AbstractMachineBlock(settings: Settings)
     : HorizontalFacingBlock(settings), BlockEntityProvider {
+    init {
+        defaultState = this.defaultState.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
+    }
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?) {
         builder?.add(Properties.HORIZONTAL_FACING)
     }
