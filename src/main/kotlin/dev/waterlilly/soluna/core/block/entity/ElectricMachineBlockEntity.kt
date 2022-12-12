@@ -47,6 +47,7 @@ abstract class ElectricMachineBlockEntity(type: BlockEntityType<*>?, pos: BlockP
         for(storage in energyStorages) {
             EnergyStorageUtil.move(energyStorage, storage, milliamps / energyStorages.size, null)
         }
+        energyStorage.amount = 0 // Intentionally waste extra energy produced
         return true
     }
     override fun tick(world: World, pos: BlockPos, state: BlockState) {

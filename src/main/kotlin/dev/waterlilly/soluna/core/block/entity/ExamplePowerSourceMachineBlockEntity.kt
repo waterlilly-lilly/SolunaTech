@@ -12,7 +12,6 @@ class ExamplePowerSourceMachineBlockEntity(pos: BlockPos?, state: BlockState?) :
     override fun tick(world: World, pos: BlockPos, state: BlockState) {
         super.tick(world, pos, state)
         if(world.isReceivingRedstonePower(pos)) {
-            world.setBlockState(pos.offset(Direction.UP), Blocks.STONE.defaultState)
             tryProduceEnergy(20)
         }
     }
