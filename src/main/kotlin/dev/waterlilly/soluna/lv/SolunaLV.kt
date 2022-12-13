@@ -2,6 +2,7 @@ package dev.waterlilly.soluna.lv
 
 import dev.waterlilly.soluna.core.util.ModModule
 import dev.waterlilly.soluna.lv.block.SolunaLVBlocks
+import dev.waterlilly.soluna.lv.item.SolunaLVItems
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
 
@@ -13,6 +14,7 @@ class SolunaLV : ModModule {
     override fun init() {
         logger.info("Initializing LV module...")
         SolunaLVBlocks.init()
+        SolunaLVItems.init()
         logger.info("LV module loading complete!")
     }
 }

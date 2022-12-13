@@ -4,19 +4,14 @@ import dev.waterlilly.soluna.core.block.AbstractMachineBlock
 import dev.waterlilly.soluna.lv.block.entity.LightBulbBlockEntity
 import net.minecraft.block.*
 import net.minecraft.block.enums.WallMountLocation
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.ItemPlacementContext
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.Properties
-import net.minecraft.util.ActionResult
-import net.minecraft.util.Hand
-import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.shape.VoxelShape
 import net.minecraft.world.BlockView
-import net.minecraft.world.World
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings
-import kotlin.IllegalStateException
 
 class LightBulbBlock : AbstractMachineBlock(QuiltBlockSettings.of(Material.GLASS)) {
     protected val FLOOR_OUTLINE = createCuboidShape(5.0, 0.0, 5.0, 11.0, 6.0, 11.0)
@@ -58,5 +53,27 @@ class LightBulbBlock : AbstractMachineBlock(QuiltBlockSettings.of(Material.GLASS
             }
             else -> throw IllegalStateException()
         }
+    }
+    override fun getPlacementState(ctx: ItemPlacementContext?): BlockState? {
+        for (direction in ctx?.placementDirections!!) {
+            var blockState: BlockState
+            blockState = if (direction.axis === Direction.Axis.Y) {
+                (defaultState
+                    .with(
+                        WallMountedBlock.FACE,
+                        if (direction == Direction.UP) WallMountLocation.CEILING else WallMountLocation.FLOOR
+                    ) as BlockState)
+                    .with(HorizontalFacingBlock.FACING, ctx.playerFacing) as BlockState
+            } else {
+                (defaultState.with(WallMountedBlock.FACE, WallMountLocation.WALL) as BlockState).with(
+                    HorizontalFacingBlock.FACING,
+                    direction.opposite
+                ) as BlockState
+            }
+            if (blockState.canPlaceAt(ctx.world, ctx.blockPos)) {
+                return blockState
+            }
+        }
+        return null
     }
 }
