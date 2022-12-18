@@ -1,7 +1,6 @@
 package dev.waterlilly.soluna.core.block
 
 import dev.waterlilly.soluna.core.block.entity.AbstractMachineBlockEntity
-import dev.waterlilly.soluna.core.block.entity.SolunaCoreBlockEntityTypes
 import net.minecraft.block.*
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
@@ -16,11 +15,11 @@ import net.minecraft.world.BlockView
 import net.minecraft.world.World
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings
 
-abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
-    : BlockWithEntity(settings) {
+abstract class AbstractMachineBlock(settings: QuiltBlockSettings) : BlockWithEntity(settings) {
     init {
         defaultState = this.stateManager.defaultState.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
     }
+
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?) {
         builder?.add(Properties.HORIZONTAL_FACING)
     }
@@ -31,11 +30,17 @@ abstract class AbstractMachineBlock(settings: QuiltBlockSettings)
         pos: BlockPos?,
         context: ShapeContext?
     ) = VoxelShapes.fullCube()
+
     override fun getPlacementState(ctx: ItemPlacementContext?): BlockState? {
         return defaultState.with(Properties.HORIZONTAL_FACING, ctx!!.playerFacing.opposite)
     }
+
     override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.MODEL
-    override fun <T : BlockEntity?> getTicker(world: World?, state: BlockState?, type: BlockEntityType<T>?): BlockEntityTicker<T>? {
+    override fun <T : BlockEntity?> getTicker(
+        world: World?,
+        state: BlockState?,
+        type: BlockEntityType<T>?
+    ): BlockEntityTicker<T>? {
         return BlockEntityTicker { world, pos, state, be ->
             (be as AbstractMachineBlockEntity).tick(
                 world,

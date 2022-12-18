@@ -5,7 +5,6 @@ import dev.waterlilly.soluna.core.util.initializers.AbstractItemInitializer
 import dev.waterlilly.soluna.lv.block.SolunaLVBlocks
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
 import net.minecraft.item.BlockItem
-import net.minecraft.item.ItemGroup
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings
 
 object SolunaLVItems : AbstractItemInitializer(Modules.LV) {

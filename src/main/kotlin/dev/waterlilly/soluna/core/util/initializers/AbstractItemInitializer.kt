@@ -15,5 +15,6 @@ abstract class AbstractItemInitializer(protected val module: ModModule) {
         ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP).register { content -> content.addItem(item) }
         return Registry.register(Registries.ITEM, module.identifier(path), item)
     }
+
     fun init() {}
 }

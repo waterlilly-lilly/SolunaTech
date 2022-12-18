@@ -20,12 +20,14 @@ class LightBulbBlock : AbstractMachineBlock(QuiltBlockSettings.of(Material.GLASS
     protected val WEST_OUTLINE = createCuboidShape(10.0, 5.0, 5.0, 16.0, 11.0, 11.0)
     protected val SOUTH_OUTLINE = createCuboidShape(5.0, 5.0, 0.0, 11.0, 11.0, 6.0)
     protected val NORTH_OUTLINE = createCuboidShape(5.0, 5.0, 10.0, 11.0, 11.0, 16.0)
+
     init {
         defaultState = this.stateManager.defaultState
             .with(Properties.HORIZONTAL_FACING, Direction.NORTH)
             .with(Properties.POWERED, false)
             .with(WallMountedBlock.FACE, WallMountLocation.CEILING)
     }
+
     override fun createBlockEntity(pos: BlockPos?, state: BlockState?) = LightBulbBlockEntity(pos!!, state!!)
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?) {
         builder?.add(Properties.HORIZONTAL_FACING, Properties.POWERED, WallMountedBlock.FACE)
@@ -41,19 +43,21 @@ class LightBulbBlock : AbstractMachineBlock(QuiltBlockSettings.of(Material.GLASS
         pos: BlockPos?,
         context: ShapeContext?
     ): VoxelShape {
-        return when(state?.get(WallMountedBlock.FACE)) {
+        return when (state?.get(WallMountedBlock.FACE)) {
             WallMountLocation.CEILING -> CEILING_OUTLINE
             WallMountLocation.FLOOR -> FLOOR_OUTLINE
-            WallMountLocation.WALL -> when(state?.get(Properties.HORIZONTAL_FACING)) {
+            WallMountLocation.WALL -> when (state.get(Properties.HORIZONTAL_FACING)) {
                 Direction.NORTH -> NORTH_OUTLINE
                 Direction.SOUTH -> SOUTH_OUTLINE
                 Direction.EAST -> EAST_OUTLINE
                 Direction.WEST -> WEST_OUTLINE
                 else -> throw IllegalStateException()
             }
+
             else -> throw IllegalStateException()
         }
     }
+
     override fun getPlacementState(ctx: ItemPlacementContext?): BlockState? {
         for (direction in ctx?.placementDirections!!) {
             var blockState: BlockState

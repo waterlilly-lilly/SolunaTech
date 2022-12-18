@@ -6,6 +6,13 @@ import dev.waterlilly.soluna.lv.block.SolunaLVBlocks
 import org.quiltmc.qsl.block.entity.api.QuiltBlockEntityTypeBuilder
 
 object SolunaLVBlockEntityTypes : AbstractBlockEntityTypeInitializer(Modules.LV) {
-    val LIGHT_BULB = register("light_bulb", QuiltBlockEntityTypeBuilder.create({pos, state -> LightBulbBlockEntity(pos, state)}, SolunaLVBlocks.LIGHT_BULB))
+    val LIGHT_BULB = register(
+        "light_bulb",
+        QuiltBlockEntityTypeBuilder.create(
+            { pos, state -> LightBulbBlockEntity(pos, state) },
+            SolunaLVBlocks.LIGHT_BULB
+        )
+    )
+
     fun init() {}
 }

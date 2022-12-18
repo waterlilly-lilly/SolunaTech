@@ -9,9 +9,9 @@ import net.minecraft.network.listener.ClientPlayPacketListener
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import team.reborn.energy.api.base.SimpleEnergyStorage
 
-abstract class AbstractMachineBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: BlockState?) : BlockEntity(type, pos, state) {
+abstract class AbstractMachineBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: BlockState?) :
+    BlockEntity(type, pos, state) {
     abstract fun tick(world: World, pos: BlockPos, state: BlockState)
     override fun writeNbt(nbt: NbtCompound?) {
         super.writeNbt(nbt)
@@ -20,6 +20,7 @@ abstract class AbstractMachineBlockEntity(type: BlockEntityType<*>?, pos: BlockP
     override fun readNbt(nbt: NbtCompound?) {
         super.readNbt(nbt)
     }
+
     override fun toUpdatePacket(): Packet<ClientPlayPacketListener?>? {
         return BlockEntityUpdateS2CPacket.of(this)
     }
