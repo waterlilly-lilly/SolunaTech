@@ -14,14 +14,14 @@ graphlib = "0.4.2+1.19.3"
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 qfapi = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "qfapi" }
 qfapi_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "qfapi" }
-
+energy = {module = "teamreborn:energy", version.ref = "energy"}
+graphlib = {module = "com.kneelawk:graphlib", version.ref="graphlib"}
 
 qkl = { module = "org.quiltmc.quilt-kotlin-libraries:quilt-kotlin-libraries", version.ref = "qkl"}
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "loader" }
 quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "mappings" }
 
-energy = {module = "teamreborn:energy", version.ref = "energy"}
-graphlib = {module = "com.kneelawk:graphlib", version.ref="graphlib"}
+
 [bundles]
 quilted_fabric_api = ["qfapi", "qfapi_deprecated"]
 

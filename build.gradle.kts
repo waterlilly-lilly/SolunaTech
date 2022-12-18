@@ -66,6 +66,7 @@ dependencies {
         exclude("net.fabricmc.fabric-api")
     }
     modImplementation(libs.graphlib)
+    include(libs.graphlib)
 }
 
 tasks {
